@@ -1,6 +1,7 @@
 const jsonServer = require("json-server");
 const jsonServerAuth = require("json-server-auth");
 const http = require("http");
+const cors = require("cors");
 
 const router = jsonServer.router("db.json");
 const app = jsonServer.create();
@@ -18,9 +19,11 @@ const keepAlivePing = () => {
 
 keepAlivePing();
 
+app.use(cors());
+
 app.use(jsonServerAuth);
 app.use(router);
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
     console.log("API escuchando en el puerto 3000");
 });
