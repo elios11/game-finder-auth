@@ -8,12 +8,18 @@ const app = jsonServer.create();
 
 const PORT = process.env.PORT || 3000;
 
+const corsOptions = {
+    origin: "https://game-finder-react.netlify.app/",
+    methods: "GET, POST",
+    credentials: true // enable passing cookies, authentication headers, etc.
+};
+
 app.db = router.db;
 
 const keepAlivePing = () => {
-    http.get(`http://localhost:${PORT}/keepalive`, (res) => {
+    http.get("https://gamefinder-back.onrender.com", (res) => {
         console.log("Sent Keep Alive ping");
-        res.on("end", () => setTimeout(keepAlivePing, 1800000)); // Ping every 30 minutes
+        res.on("end", () => setTimeout(keepAlivePing, 840000)); // Ping every 14 minutes
     });
 };
 
